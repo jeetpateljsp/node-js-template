@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: Start!23
+        MONGO_INITDB_DATABASE: bootcamp
+    ports:
+      - "27018:27017"
+
+  redis:
+    depends_on:
+      - mongo
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]

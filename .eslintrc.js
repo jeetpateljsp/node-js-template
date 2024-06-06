@@ -23,7 +23,7 @@ module.exports = {
         'import/no-webpack-loader-syntax': 0,
         'key-spacing': [2, { beforeColon: false, afterColon: true }],
         'arrow-parens': ['error', 'as-needed'],
-        'prettier/prettier': ['error', prettierOptions],
+        // 'prettier/prettier': ['error', prettierOptions],
         'arrow-body-style': [2, 'as-needed'],
         'class-methods-use-this': 0,
         'import/imports-first': 0,

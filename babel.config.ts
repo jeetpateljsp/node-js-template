@@ -10,7 +10,7 @@ const babelPreset = JSON.parse(
 );
 
 module.exports = {
-    presets: [babelPreset],
+    presets: [...babelPreset, '@babel/preset-typescript'],
     plugins: process.env.ENVIRONMENT_NAME === 'production'
         ? ['transform-remove-console', '@babel/plugin-transform-runtime']
         : ['@babel/plugin-transform-runtime'],

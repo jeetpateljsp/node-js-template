@@ -1,10 +1,12 @@
 {
-  "exec": "babel-node server/index.js",
+  "execMap": {
+    "ts": "ts-node"
+  },
   "watch": ["server/*"],
-  "ignore": ["**/__tests__/**", "*.test.js"],
+  "ignore": ["**/__tests__/**", "*.test.ts"],
   "events": {
     "restart": "kill-port 9000",
     "crash": "kill-port 9000 && yarn start"
   },
-  "delay": "250"
+  "delay": 250
 }

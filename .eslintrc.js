@@ -6,9 +6,9 @@ const prettierOptions = JSON.parse(
 );
 
 module.exports = {
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint/parser',
     extends: ['prettier'],
-    plugins: ['prettier'],
+    plugins: ['prettier', '@typescript-eslint'],
     env: {
         jest: true,
         browser: false,
@@ -51,7 +51,7 @@ module.exports = {
                     app: './app',
                     paths: ['app'],
                     modules: ['app', 'node_modules'],
-                    extensions: ['.js', '.json', '.coffee']
+                    extensions: ['.ts', '.js', '.json', '.coffee']
                 }
             }
         }

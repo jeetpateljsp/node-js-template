@@ -1,0 +1,12 @@
+{
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "watch": ["server/*"],
+  "ignore": ["**/__tests__/**", "*.test.ts"],
+  "events": {
+    "restart": "kill-port 9000",
+    "crash": "kill-port 9000 && yarn start"
+  },
+  "delay": 250
+}

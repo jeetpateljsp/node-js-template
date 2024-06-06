@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-
 const envFile: string = `.env.${process.env.ENVIRONMENT_NAME}`;
 
 require('dotenv-safe').config({

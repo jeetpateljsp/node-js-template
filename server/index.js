@@ -1,10 +1,11 @@
-import helmet from 'helmet';
 import express from 'express'
-import cors from 'cors';
 import * as http from 'node:http';
+import helmet from 'helmet';
+import cors from 'cors';
+import config from 'config';
 
 const app = express();
-app.set('port', process.env.PORT || 9000);
+app.set('port', config().port || 9000);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());

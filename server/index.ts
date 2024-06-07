@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express'
+import express, { Request, Response } from 'express';
 import * as http from 'node:http';
 import helmet from 'helmet';
 import cors from 'cors';

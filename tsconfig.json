@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "lib": ["es2018"],
+    "target": "es2018",
     "module": "commonjs",
     "rootDir": "./",
     "outDir": "./dist",
     "strict": true,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
@@ -14,7 +19,7 @@
       ],
       "@utils/*": [
         "./server/utils/*"
-      ],
+      ]
     }
   },
   "include": [

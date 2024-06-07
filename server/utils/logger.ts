@@ -1,7 +1,8 @@
-import bunyan from 'bunyan'
+import bunyan from 'bunyan';
 
 declare global {
-    var log: bunyan
+    // eslint-disable-next-line no-var
+    var log: bunyan;
 }
 
 export default global.log = bunyan.createLogger({
@@ -16,4 +17,4 @@ export default global.log = bunyan.createLogger({
             path: 'error.log'
         }
     ]
-})
+});

@@ -1,6 +1,8 @@
-const envFile: string = `.env.${process.env.ENVIRONMENT_NAME}`;
+import dotenvSafe from 'dotenv-safe';
 
-require('dotenv-safe').config({
+const envFile = `.env.${process.env.ENVIRONMENT_NAME}`;
+
+dotenvSafe.config({
     path: envFile,
     example: '.env.example',
     allowEmptyValues: true

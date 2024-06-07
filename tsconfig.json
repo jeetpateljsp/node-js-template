@@ -11,7 +11,10 @@
     "paths": {
       "@config": [
         "./server/config"
-      ]
+      ],
+      "@utils/*": [
+        "./server/utils/*"
+      ],
     }
   },
   "include": [

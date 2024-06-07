@@ -3,6 +3,7 @@ import * as http from 'node:http';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from '@config';
+import log from '@utils/logger';
 
 const app: express.Application = express();
 app.set('port', config().port || 9000);
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV !== 'test') {
     const server = http.createServer(app);
     server.listen(app.get('port'), () => {
         console.log('Server is running at port %s', app.get('port'));
+        log.info('Server is running at port %s', app.get('port'));
     });
 }
 

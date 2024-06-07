@@ -9,6 +9,7 @@ dotenvSafe.config({
 });
 
 export default () => ({
+    app_name: process.env.APPLICATION_NAME,
     port: process.env.PORT,
     mongoPort: process.env.MONGO_PORT,
     mongoUri: process.env.MONGO_URI,

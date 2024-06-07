@@ -3,15 +3,17 @@ import * as http from 'node:http';
 import helmet from 'helmet';
 import cors from 'cors';
 import config from '@config';
-import log from '@utils/logger';
+import logger from '@utils/logger';
 
-const app: express.Application = express();
+const log = logger(config().app_name || 'node-server');
+
+const app = express();
 app.set('port', config().port || 9000);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req, res) => {
     res.send('node server at your service 🖖! ');
 });
 

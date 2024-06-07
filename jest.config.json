@@ -1,5 +1,6 @@
 {
   "testEnvironment": "node",
+  "preset": "ts-jest",
   "setupFilesAfterEnv": ["./jest.setup.ts"],
   "collectCoverageFrom": [
     "**/server/**",
@@ -11,7 +12,7 @@
   "testPathIgnorePatterns": ["<rootDir>/dist/"],
   "moduleNameMapper": {
     "@server(.*)$": "<rootDir>/server$1",
-    "@utils(.*)$": "<rootDir>/server/$1/$2"
+    "@(utils|config)(.*)$": "<rootDir>/server/$1/$2"
   },
   "coverageThreshold": {
     "global": {

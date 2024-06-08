@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import config from '@config';
 import logger from '@utils/logger';
+import { connectDB } from '@database/mongo';
 
 const log = logger(config().app_name || 'node-server');
 
@@ -12,8 +13,9 @@ app.set('port', config().port || 9000);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+connectDB();
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.send('node server at your service 🖖! ');
 });
 

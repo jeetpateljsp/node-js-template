@@ -22,7 +22,10 @@
       ],
       "@utils/*": [
         "./server/utils/*"
-      ]
+      ],
+      "@database/*": [
+        "./server/database/*"
+      ],
     }
   },
   "include": [

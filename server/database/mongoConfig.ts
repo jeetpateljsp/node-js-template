@@ -1,9 +1,9 @@
 import config from "@config";
 
 const getMongoUrl = () => {
-    const { mongoUri, mongoPort, mongoDbName } = config()
-    const options = '?readPreferences=secondary';
-    return `mongodb://${mongoUri}:${mongoPort}/${mongoDbName}${options}`;
+    const { mongoUser, mongoPassword, mongoUri, mongoPort, mongoDbName } = config();
+    const options = '?authSource=admin';
+    return `mongodb://${mongoUser}:${mongoPassword}@${mongoUri}:${mongoPort}/${mongoDbName}${options}`;
 }
 
 export default getMongoUrl;

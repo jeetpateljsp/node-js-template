@@ -1,6 +1,6 @@
 import { Document, Model } from 'mongoose';
 
-class TransactionUtils <T extends Document> {
+class MongoUtils<T extends Document> {
     private model: Model<T>;
 
     constructor(model: Model<T>) {
@@ -14,4 +14,4 @@ class TransactionUtils <T extends Document> {
 
 }
 
-export default TransactionUtils;
+export default MongoUtils;

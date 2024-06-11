@@ -3,7 +3,8 @@ import app from '@server';
 
 // Test node server
 describe('node server', () => {
-    it('should return 200', async () => {
+
+    it('should return 200 on GET request', async () => {
         const response = await supertest(app).get('/');
         expect(response.status).toBe(200);
     });

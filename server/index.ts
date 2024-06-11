@@ -14,27 +14,21 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const startServer = async () => {
-    try{
-        await connectDB();
-
-        app.get('/', (req: Request, res: Response) => {
-            res.send('node server at your service 🖖! ');
-        });
-
-        if (process.env.NODE_ENV !== 'test') {
-            const server = http.createServer(app);
-            server.listen(app.get('port'), () => {
-                log.info('SERVER STARTED: Server is running at port %s ', app.get('port'));
-            });
-        }
-    } catch (error) {
-        log.error('Error starting server: %s', error);
-    }
-};
-
-startServer().catch((error) => {
+try{
+    connectDB();
+} catch (error) {
     log.error('Error starting server: %s', error);
+}
+
+app.get('/', (req: Request, res: Response) => {
+    res.send('node server at your service 🖖! ');
 });
+
+if (process.env.NODE_ENV !== 'test') {
+    const server = http.createServer(app);
+    server.listen(app.get('port'), () => {
+        log.info('SERVER STARTED: Server is running at port %s ', app.get('port'));
+    });
+}
 
 export default app;

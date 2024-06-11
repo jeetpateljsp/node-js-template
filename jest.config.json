@@ -12,7 +12,7 @@
   "testPathIgnorePatterns": ["<rootDir>/dist/"],
   "moduleNameMapper": {
     "@server(.*)$": "<rootDir>/server$1",
-    "@(utils|config)(.*)$": "<rootDir>/server/$1/$2"
+    "@(utils|config|database)(.*)$": "<rootDir>/server/$1/$2"
   },
   "coverageThreshold": {
     "global": {

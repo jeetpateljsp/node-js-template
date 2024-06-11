@@ -1,27 +1,39 @@
-import TransactionUtils from '@database/transactionUtils';
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import MongoUtils from '@database/mongoUtils';
 
-interface ITestDoc extends Document {
-    name: string;
-}
-
-const TestSchema: Schema = new Schema({
-    name: { type: String, required: true }
-});
-
-const TestModel = mongoose.model<ITestDoc>('Test', TestSchema);
-
-const transacionUtils = new TransactionUtils<ITestDoc>(TestModel);
+const saveMock = jest.fn();
+jest.mock('mongoose', () => ({
+    Model: jest.fn().mockImplementation(() => ({
+        save: saveMock
+    })),
+}));
 
 describe('transactionUtils tests', () => {
-    const spy = jest.spyOn(TestModel, 'countDocuments');
+    // const spy = jest.spyOn(TestModel, 'countDocuments');
+
+    let mongoUtils: MongoUtils<any>;
+    let model: Model<any>;
+
+    beforeAll(() => {
+        model = mongoose.Model as any;
+        mongoUtils = new MongoUtils<any>(model);
+    })
+
+    beforeEach(() => {
+        saveMock.mockClear();
+    });
 
     it('should create a new document', async () => {
-        const model = { create: jest.fn().mockResolvedValue({ name: 'test' }) };
-        const item = await transacionUtils.create(model);
-        expect(model.create).toHaveBeenCalled();
-        expect(item).toEqual({ name: 'test' });
+        // Arrange
+        const transactionData = {name: 'test'};
+        saveMock.mockResolvedValueOnce(transactionData);
 
+        // Act
+        const result = await mongoUtils.create(transactionData);
 
+        // Assert
+        expect(saveMock).toHaveBeenCalled();
+        expect(result).toEqual(transactionData);
     });
+
 });

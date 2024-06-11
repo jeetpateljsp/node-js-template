@@ -4,13 +4,15 @@ import getMongoUri from '@database/mongoConfig';
 
 const log = logger();
 
-export const connectDB = async () => {
+export const connectDB = () => {
     let db;
     if (mongoose.connection.readyState === 1) {
         log.info('Database is already connected');
         db = mongoose.connection;
     } else {
-        await mongoose.connect(getMongoUri());
+        mongoose.connect(getMongoUri()).then(r => {
+            log.info('Connected to database');
+        });
         db = mongoose.connection;
         db.on('error', (error) => {
             log.error('Error connecting to database', error);

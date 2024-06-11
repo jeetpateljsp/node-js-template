@@ -1,4 +1,4 @@
-import { Document, Model } from 'mongoose';
+import { Document, Model, FilterQuery } from 'mongoose';
 
 class MongoUtils<T extends Document> {
     private model: Model<T>;
@@ -7,7 +7,7 @@ class MongoUtils<T extends Document> {
         this.model = model;
     }
 
-    create = async  (data: T) => {
+    create = async (data: Partial<T>): Promise<T> => {
         const newDoc = new this.model(data);
         return await newDoc.save();
     }

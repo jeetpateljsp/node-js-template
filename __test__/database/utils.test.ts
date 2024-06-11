@@ -1,5 +1,13 @@
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model, Document } from 'mongoose';
 import MongoUtils from '@database/mongoUtils';
+
+interface TodoDoc extends Document {
+    title: string;
+    desc: string;
+    status: 'pending' | 'ongoing' | 'completed';
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 const saveMock = jest.fn();
 jest.mock('mongoose', () => ({
@@ -11,12 +19,12 @@ jest.mock('mongoose', () => ({
 describe('transactionUtils tests', () => {
     // const spy = jest.spyOn(TestModel, 'countDocuments');
 
-    let mongoUtils: MongoUtils<any>;
-    let model: Model<any>;
+    let mongoUtils: MongoUtils<TodoDoc>;
+    let model: Model<TodoDoc>;
 
     beforeAll(() => {
         model = mongoose.Model as any;
-        mongoUtils = new MongoUtils<any>(model);
+        mongoUtils = new MongoUtils<TodoDoc>(model);
     })
 
     beforeEach(() => {
@@ -25,7 +33,11 @@ describe('transactionUtils tests', () => {
 
     it('should create a new document', async () => {
         // Arrange
-        const transactionData = {name: 'test'};
+        const transactionData: TodoDoc = new model({
+            title: 'test',
+            desc: 'test desc',
+            status: 'pending',
+        })
         saveMock.mockResolvedValueOnce(transactionData);
 
         // Act

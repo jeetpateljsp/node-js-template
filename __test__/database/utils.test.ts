@@ -1,42 +1,38 @@
 import mongoose, { Model, Document, FilterQuery } from 'mongoose';
 import MongoUtils from '@database/mongoUtils';
-
-interface TodoDoc extends Document {
-    title: string;
-    desc: string;
-    status: 'pending' | 'ongoing' | 'completed';
-    createdAt: Date;
-    updatedAt: Date;
-}
+import { ITodo } from '@models/todo';
 
 const saveMock = jest.fn();
 const findOneMock = jest.fn();
+const modelMock = {
+    save: saveMock,
+    findOne: findOneMock,
+}
 jest.mock('mongoose', () => ({
     Model: jest.fn().mockImplementation(() => ({
         save: saveMock,
-        findOne: findOneMock,
-    })),
+    }))
 }));
 
 describe('transactionUtils tests', () => {
-    // const spy = jest.spyOn(TestModel, 'countDocuments');
 
-    let mongoUtils: MongoUtils<TodoDoc>;
-    let model: Model<TodoDoc>;
+    let mongoUtils: MongoUtils<ITodo>;
+    let model: Model<ITodo>;
 
     beforeAll(() => {
-        model = mongoose.Model as any;
-        mongoUtils = new MongoUtils<TodoDoc>(model);
+        model = Model as any;
+        mongoUtils = new MongoUtils<ITodo>(model);
     })
 
     beforeEach(() => {
+        Model.findOne = findOneMock;
         saveMock.mockClear();
         findOneMock.mockClear();
     });
 
     it('should create a new document', async () => {
         // Arrange
-        const transactionData: TodoDoc = new model({
+        const transactionData: ITodo = new model({
             title: 'test',
             desc: 'test desc',
             status: 'pending',
@@ -53,19 +49,21 @@ describe('transactionUtils tests', () => {
 
     it('should read a document when one matches the filter', async () => {
         // Arrange
-        const filter: FilterQuery<TodoDoc> = {title: 'test'};
-        const expectedData: TodoDoc = new model({
+        const filter: FilterQuery<ITodo> = {title: 'test'};
+        const expectedData: ITodo = new model({
             title: 'test',
             desc: 'test desc',
             status: 'pending',
         });
-        findOneMock.mockResolvedValueOnce(expectedData);
+        findOneMock.mockReturnValueOnce({
+            exec: jest.fn().mockResolvedValue(expectedData)
+        });
 
         // Act
         const result = await mongoUtils.readOne(filter);
 
         // Assert
-        expect(saveMock).toHaveBeenCalled();
+        expect(findOneMock).toHaveBeenCalledWith(filter);
         expect(result).toEqual(expectedData);
     });
 

@@ -12,6 +12,11 @@ class MongoUtils<T extends Document> {
         return await newDoc.save();
     }
 
+    readOne = async (filter: FilterQuery<T> = {}): Promise<T | null> => {
+        return await this.model.findOne(filter).exec();
+    }
+
+
 }
 
 export default MongoUtils;

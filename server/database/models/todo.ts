@@ -1,6 +1,6 @@
 import mongoose, {Schema, Document} from 'mongoose';
 
-interface ITodo extends Document {
+export interface ITodo extends Document {
     title: string,
     desc: string;
     status: 'pending' | 'ongoing' | 'completed';
@@ -8,7 +8,7 @@ interface ITodo extends Document {
     updatedAt: Date;
 }
 
-const TodoSchema = new Schema({
+export const TodoSchema = new Schema({
     title: {type: String, required: true},
     desc: {type: String, required: true},
     status: {type: String, enum: ['pending', 'ongoing', 'completed'], default: 'pending'},
@@ -25,9 +25,4 @@ TodoSchema.pre<ITodo>('save', function(next) {
     next();
 });
 
-const TodoModel = mongoose.model<ITodo>('Todo', TodoSchema);
-
-export default {
-    TodoModel,
-    TodoSchema
-};
+export const TodoModel = mongoose.model<ITodo>('Todo', TodoSchema);

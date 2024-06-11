@@ -1,4 +1,4 @@
-import { Document, Model, FilterQuery } from 'mongoose';
+import { Document, Model, FilterQuery, UpdateQuery } from 'mongoose';
 
 class MongoUtils<T extends Document> {
     private model: Model<T>;
@@ -16,7 +16,17 @@ class MongoUtils<T extends Document> {
         return await this.model.findOne(filter).exec();
     }
 
+    readMany = async (filter: FilterQuery<T> = {}): Promise<T[]> => {
+        return await this.model.find(filter).exec();
+    }
 
+    update = async (id: string, data: UpdateQuery<Partial<T>>): Promise<T | null> => {
+        return await this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+    };
+
+    delete = async (id: string): Promise<T | null> => {
+        return await this.model.findByIdAndDelete(id).exec();
+    }
 }
 
 export default MongoUtils;

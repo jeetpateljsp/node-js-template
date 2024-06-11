@@ -6,12 +6,10 @@ const saveMock = jest.fn();
 const findOneMock = jest.fn();
 const modelMock = {
     save: saveMock,
-    findOne: findOneMock,
 }
+
 jest.mock('mongoose', () => ({
-    Model: jest.fn().mockImplementation(() => ({
-        save: saveMock,
-    }))
+    Model: jest.fn().mockImplementation(() => modelMock),
 }));
 
 describe('transactionUtils tests', () => {

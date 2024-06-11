@@ -10,6 +10,6 @@ describe('node server', () => {
     });
     it('should return "node server at your service 🖖! "', async () => {
         const response = await supertest(app).get('/');
-        expect(response.text).toBe('node server at your service 🖖! ');
+        expect(response.body.data).toBe('node server at your service 🖖! ');
     });
 });

@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import config from '@config';
 import logger from '@utils/logger';
+import { apiSuccess } from '@utils/responseUtils';
 import { connectDB } from '@database/mongo';
 
 const log = logger();
@@ -21,7 +22,7 @@ try{
 }
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('node server at your service 🖖! ');
+    apiSuccess(res, 'node server at your service 🖖! ');
 });
 
 if (process.env.NODE_ENV !== 'test') {

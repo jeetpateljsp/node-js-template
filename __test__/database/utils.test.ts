@@ -1,4 +1,4 @@
-import mongoose, { Model, Document } from 'mongoose';
+import mongoose, { Model, Document, FilterQuery } from 'mongoose';
 import MongoUtils from '@database/mongoUtils';
 
 interface TodoDoc extends Document {
@@ -10,9 +10,11 @@ interface TodoDoc extends Document {
 }
 
 const saveMock = jest.fn();
+const findOneMock = jest.fn();
 jest.mock('mongoose', () => ({
     Model: jest.fn().mockImplementation(() => ({
-        save: saveMock
+        save: saveMock,
+        findOne: findOneMock,
     })),
 }));
 
@@ -29,6 +31,7 @@ describe('transactionUtils tests', () => {
 
     beforeEach(() => {
         saveMock.mockClear();
+        findOneMock.mockClear();
     });
 
     it('should create a new document', async () => {
@@ -46,6 +49,24 @@ describe('transactionUtils tests', () => {
         // Assert
         expect(saveMock).toHaveBeenCalled();
         expect(result).toEqual(transactionData);
+    });
+
+    it('should read a document when one matches the filter', async () => {
+        // Arrange
+        const filter: FilterQuery<TodoDoc> = {title: 'test'};
+        const expectedData: TodoDoc = new model({
+            title: 'test',
+            desc: 'test desc',
+            status: 'pending',
+        });
+        findOneMock.mockResolvedValueOnce(expectedData);
+
+        // Act
+        const result = await mongoUtils.readOne(filter);
+
+        // Assert
+        expect(saveMock).toHaveBeenCalled();
+        expect(result).toEqual(expectedData);
     });
 
 });

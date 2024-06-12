@@ -6,6 +6,7 @@ import config from '@config';
 import logger from '@utils/logger';
 import { apiSuccess } from '@utils/responseUtils';
 import { connectDB } from '@database/mongo';
+import api from '@api/index';
 
 const log = logger();
 
@@ -24,6 +25,8 @@ try{
 app.get('/', (req: Request, res: Response) => {
     apiSuccess(res, 'node server at your service 🖖! ');
 });
+
+api(app);
 
 if (process.env.NODE_ENV !== 'test') {
     const server = http.createServer(app);

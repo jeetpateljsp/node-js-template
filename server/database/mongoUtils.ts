@@ -32,6 +32,7 @@ class MongoUtils<T extends Document> {
         return await this.model.deleteMany({}).exec();
     }
 
+    // This method is to be tested.
     count = async (filter: FilterQuery<T> = {}): Promise<number> => {
         return await this.model.countDocuments(filter).exec();
     }

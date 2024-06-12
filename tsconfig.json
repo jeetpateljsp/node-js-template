@@ -29,6 +29,9 @@
       "@models/*": [
         "./server/database/models/*"
       ],
+      "@api/*": [
+        "./server/api/*"
+      ],
     }
   },
   "include": [

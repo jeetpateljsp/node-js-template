@@ -27,6 +27,15 @@ class MongoUtils<T extends Document> {
     delete = async (id: string): Promise<T | null> => {
         return await this.model.findByIdAndDelete(id).exec();
     }
+
+    deleteAll = async () => {
+        return await this.model.deleteMany({}).exec();
+    }
+
+    count = async (filter: FilterQuery<T> = {}): Promise<number> => {
+        return await this.model.countDocuments(filter).exec();
+    }
+
 }
 
 export default MongoUtils;

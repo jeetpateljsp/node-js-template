@@ -111,7 +111,7 @@ describe('transactionUtils tests', () => {
         });
 
         // Act
-        const result = await mongoUtils.readMany(filter);
+        const result = await mongoUtils.readAll(filter);
 
         // Assert
         expect(findMock).toHaveBeenCalledWith(filter);
@@ -127,7 +127,7 @@ describe('transactionUtils tests', () => {
         });
 
         // Act
-        const result = await mongoUtils.readMany(filter);
+        const result = await mongoUtils.readAll(filter);
 
         // Assert
         expect(findMock).toHaveBeenCalledWith(filter);

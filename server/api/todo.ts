@@ -35,7 +35,7 @@ export const TodoAPI = ({ router, model }: ApiDependencies) => {
 
     router.get('/', async (req: Request, res: Response) => {
         try {
-            const result = await todoUtils.readMany(model);
+            const result = await todoUtils.readAll(model);
             apiSuccess(res, result);
         } catch (error) {
             apiFailure(res, error);
